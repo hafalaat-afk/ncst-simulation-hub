@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NCST Simulation Hub with interactive science simulations for APS201 and APS301 students." />
+  <title>NCST Simulation Hub | APS201 & APS301</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="brand-icon" aria-hidden="true">⚛</div>
+      <div>
+        <h1>NCST Simulation Hub</h1>
+        <p>APS201 & APS301 Interactive Learning Hub</p>
+      </div>
+    </div>
+    <button id="themeToggle" class="icon-button" type="button" aria-label="Toggle dark mode">☾</button>
+  </header>
+
+  <nav class="tabs" aria-label="Simulation tabs">
+    <button class="tab active" data-tab="home">Home</button>
+    <button class="tab" data-tab="si">SI Units</button>
+    <button class="tab" data-tab="static">Static Electricity</button>
+    <button class="tab" data-tab="field">Electric Field</button>
+    <button class="tab" data-tab="current">Current & Voltage</button>
+    <button class="tab" data-tab="hooke">Hooke's Law</button>
+    <button class="tab" data-tab="ph">Acids & Bases</button>
+    <button class="tab" data-tab="periodic">Periodic Trends</button>
+  </nav>
+
+  <main>
+    <section id="home" class="panel active-panel">
+      <div class="hero">
+        <div>
+          <span class="eyebrow">Interactive Science</span>
+          <h2>Explore, change variables, observe patterns.</h2>
+          <p>Choose a simulation above. Each activity is designed for quick classroom use, independent practice, or revision.</p>
+          <div class="hero-actions">
+            <button class="primary jump-button" data-target="static">Start with Static Electricity</button>
+            <button class="secondary jump-button" data-target="hooke">Try Hooke's Law</button>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit orbit-one"><span></span></div>
+          <div class="orbit orbit-two"><span></span></div>
+          <div class="nucleus">SCI</div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <h3>Available simulations</h3>
+        <p>Click any card to open it.</p>
+      </div>
+      <div class="card-grid">
+        <button class="topic-card jump-button" data-target="si"><span>📏</span><strong>SI Units</strong><small>Convert units and scientific notation</small></button>
+        <button class="topic-card jump-button" data-target="static"><span>⚡</span><strong>Static Electricity</strong><small>Charge a rod and attract paper</small></button>
+        <button class="topic-card jump-button" data-target="field"><span>➕</span><strong>Electric Field</strong><small>Explore fields around charges</small></button>
+        <button class="topic-card jump-button" data-target="current"><span>🔋</span><strong>Current & Voltage</strong><small>Investigate voltage, resistance and current</small></button>
+        <button class="topic-card jump-button" data-target="hooke"><span>🌀</span><strong>Hooke's Law</strong><small>Test F = kx and elastic limit</small></button>
+        <button class="topic-card jump-button" data-target="ph"><span>🧪</span><strong>Acids & Bases</strong><small>pH, indicators and neutralization</small></button>
+        <button class="topic-card jump-button" data-target="periodic"><span>🧬</span><strong>Periodic Trends</strong><small>Compare atomic properties</small></button>
+      </div>
+
+      <div class="info-banner">
+        <strong>Teacher tip:</strong> Project a simulation first, then let students test one variable at a time and explain the pattern they observe.
+      </div>
+    </section>
+
+    <section id="si" class="panel">
+      <div class="sim-header">
+        <div><span class="course-tag">APS201</span><h2>SI Units & Scientific Notation</h2><p>Convert common measurements and practise scientific notation.</p></div>
+      </div>
+      <div class="sim-layout">
+        <div class="sim-card controls-card">
+          <h3>Unit converter</h3>
+          <label>Quantity
+            <select id="quantitySelect">
+              <option value="length">Length</option><option value="mass">Mass</option><option value="time">Time</option>
+            </select>
+          </label>
+          <label>Value <input id="unitValue" type="number" value="1" step="any" /></label>
+          <div class="two-col">
+            <label>From <select id="fromUnit"></select></label>
+            <label>To <select id="toUnit"></select></label>
+          </div>
+          <button id="convertButton" class="primary">Convert</button>
+          <div class="result-box"><span>Result</span><strong id="conversionResult">1 m</strong></div>
+        </div>
+        <div class="sim-card">
+          <h3>Scientific notation</h3>
+          <p>Enter a number and convert it.</p>
+          <label>Number <input id="sciInput" type="number" value="1250000" step="any" /></label>
+          <button id="sciButton" class="secondary">Convert to scientific notation</button>
+          <div class="big-answer" id="sciResult">1.25 × 10<sup>6</sup></div>
+          <div class="challenge-box"><strong>Challenge</strong><p>Convert 0.00042 m into scientific notation, then convert it to micrometres.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="static" class="panel">
+      <div class="sim-header"><div><span class="course-tag">APS201</span><h2>Static Electricity</h2><p>Charge a plastic rod and observe how neutral paper responds.</p></div></div>
+      <div class="sim-layout">
+        <div class="sim-card controls-card">
+          <h3>Controls</h3>
+          <label>Charge strength <input id="chargeStrength" type="range" min="0" max="100" value="0" /><output id="chargeOutput">0%</output></label>
+          <button id="rubRod" class="primary">Rub the plastic rod</button>
+          <button id="resetStatic" class="secondary">Reset</button>
+          <div class="status-box" id="staticStatus">The rod is neutral. Rub it to transfer electrons.</div>
+          <div class="legend"><span><i class="dot negative"></i> Extra electrons</span><span><i class="paper-dot"></i> Paper pieces</span></div>
+        </div>
+        <div class="sim-card canvas-card">
+          <canvas id="staticCanvas" width="760" height="420" aria-label="Static electricity simulation"></canvas>
+          <p class="caption">Higher charge strength creates a stronger attractive effect on nearby neutral paper.</p>
+        </div>
+      </div>
+      <div class="challenge-box wide"><strong>Think</strong><p>Why can a charged rod attract neutral paper even though the paper has no net charge?</p></div>
+    </section>
+
+    <section id="field" class="panel">
+      <div class="sim-header"><div><span class="course-tag">APS201</span><h2>Electric Field</h2><p>Move charges and observe the direction and relative strength of the electric field.</p></div></div>
+      <div class="sim-layout">
+        <div class="sim-card controls-card">
+          <h3>Field setup</h3>
+          <label>Arrangement
+            <select id="fieldMode"><option value="positive">Single positive charge</option><option value="negative">Single negative charge</option><option value="dipole">Positive and negative pair</option><option value="like">Two positive charges</option></select>
+          </label>
+          <label>Charge magnitude <input id="fieldMagnitude" type="range" min="1" max="5" value="2" /><output id="fieldMagnitudeOut">2</output></label>
+          <button id="resetField" class="secondary">Reset positions</button>
+          <div class="status-box">Drag the charge circles inside the simulation area.</div>
+        </div>
+        <div class="sim-card canvas-card"><canvas id="fieldCanvas" width="760" height="420"></canvas><p class="caption">Field arrows point away from positive charges and toward negative charges.</p></div>
+      </div>
+      <div class="challenge-box wide"><strong>Challenge</strong><p>Where is the electric field strongest? Use arrow size and charge spacing as evidence.</p></div>
+    </section>
+
+    <section id="current" class="panel">
+      <div class="sim-header"><div><span class="course-tag">APS201</span><h2>Current, Charge Flow & Potential Difference</h2><p>Change voltage and resistance to investigate current in a simple circuit.</p></div></div>
+      <div class="sim-layout">
+        <div class="sim-card controls-card">
+          <h3>Adjust the circuit</h3>
+          <label>Potential difference, V <input id="voltageSlider" type="range" min="1" max="12" value="6" step="1" /><output id="voltageOut">6 V</output></label>
+          <label>Resistance, R <input id="resistanceSlider" type="range" min="1" max="20" value="6" step="1" /><output id="resistanceOut">6 Ω</output></label>
+          <div class="formula-card">I = V ÷ R</div>
+          <div class="result-box"><span>Current</span><strong id="currentResult">1.00 A</strong></div>
+          <button id="resetCurrent" class="secondary">Reset</button>
+        </div>
+        <div class="sim-card">
+          <div class="circuit-wrap"><canvas id="currentCanvas" width="760" height="420"></canvas></div>
+          <p class="caption">The moving dots represent charge carriers. Their speed changes with current.</p>
+        </div>
+      </div>
+      <div class="challenge-box wide"><strong>Predict first</strong><p>If voltage doubles while resistance stays constant, what happens to current? Test your prediction.</p></div>
+    </section>
+
+    <section id="hooke" class="panel">
+      <div class="sim-header"><div><span class="course-tag">APS301</span><h2>Hooke's Law, Extension & Elastic Limit</h2><p>Apply force to a spring and compare force with extension.</p></div></div>
+      <div class="sim-layout">
+        <div class="sim-card controls-card">
+          <h3>Spring controls</h3>
+          <label>Spring constant, k <input id="kSlider" type="range" min="10" max="100" value="40" step="5" /><output id="kOut">40 N/m</output></label>
+          <label>Applied force, F <input id="forceSlider" type="range" min="0" max="12" value="4" step="0.5" /><output id="forceOut">4.0 N</output></label>
+          <label>Elastic limit <input id="limitSlider" type="range" min="5" max="12" value="8" step="0.5" /><output id="limitOut">8.0 N</output></label>
+          <div class="result-box"><span>Extension</span><strong id="extensionResult">0.100 m</strong></div>
+          <div id="elasticStatus" class="status-box success">Within elastic limit</div>
+          <button id="resetHooke" class="secondary">Reset</button>
+        </div>
+        <div class="sim-card dual-canvas">
+          <canvas id="springCanvas" width="360" height="420"></canvas>
+          <canvas id="graphCanvas" width="360" height="420"></canvas>
+        </div>
+      </div>
+      <div class="challenge-box wide"><strong>Analyse</strong><p>Increase force beyond the elastic limit. Why does the graph stop following a straight-line Hooke's law relationship?</p></div>
+    </section>
+
+    <section id="ph" class="panel">
+      <div class="sim-header"><div><span class="course-tag">APS301</span><h2>Acids, Bases, pH & Neutralization</h2><p>Explore pH, indicators, and a simple acid-base neutralization model.</p></div></div>
+      <div class="sim-layout">
+        <div class="sim-card controls-card">
+          <h3>pH explorer</h3>
+          <label>pH <input id="phSlider" type="range" min="0" max="14" value="7" step="0.1" /><output id="phOut">7.0</output></label>
+          <label>Indicator
+            <select id="indicatorSelect"><option value="universal">Universal indicator</option><option value="litmus">Litmus</option><option value="phenolphthalein">Phenolphthalein</option></select>
+          </label>
+          <div class="beaker"><div id="phLiquid" class="liquid"></div><span id="phLabel">Neutral</span></div>
+          <div class="result-box"><span>Indicator result</span><strong id="indicatorResult">Green</strong></div>
+        </div>
+        <div class="sim-card">
+          <h3>Neutralization mixer</h3>
+          <p>Add equal-concentration acid and base. The model estimates the resulting pH.</p>
+          <label>Acid volume <input id="acidSlider" type="range" min="0" max="50" value="25" /><output id="acidOut">25 mL</output></label>
+          <label>Base volume <input id="baseSlider" type="range" min="0" max="50" value="25" /><output id="baseOut">25 mL</output></label>
+          <div class="neutral-meter"><div id="neutralMarker"></div></div>
+          <div class="big-answer">Estimated pH: <span id="mixPh">7.0</span></div>
+          <button id="resetPh" class="secondary">Reset</button>
+        </div>
+      </div>
+      <div class="challenge-box wide"><strong>Explain</strong><p>At the neutralization point, why does the pH move toward 7 when a strong acid reacts with a strong base in equal amounts?</p></div>
+    </section>
+
+    <section id="periodic" class="panel">
+      <div class="sim-header"><div><span class="course-tag">APS301</span><h2>Periodic Trends & Chemical Behaviour</h2><p>Select elements and compare atomic radius, ionization energy, and electronegativity.</p></div></div>
+      <div class="periodic-layout">
+        <div class="sim-card">
+          <h3>Click an element</h3>
+          <div id="miniPeriodic" class="mini-periodic"></div>
+          <p class="caption">A simplified selection from Periods 2 and 3 is shown.</p>
+        </div>
+        <div class="sim-card controls-card">
+          <h3 id="elementName">Sodium (Na)</h3>
+          <div class="trend-list">
+            <div><span>Atomic radius</span><meter id="radiusMeter" min="30" max="200" value="186"></meter><strong id="radiusValue">186 pm</strong></div>
+            <div><span>1st ionization energy</span><meter id="ionMeter" min="400" max="1700" value="496"></meter><strong id="ionValue">496 kJ/mol</strong></div>
+            <div><span>Electronegativity</span><meter id="enMeter" min="0" max="4" value="0.93"></meter><strong id="enValue">0.93</strong></div>
+          </div>
+          <div id="trendSummary" class="status-box">Sodium has a relatively large atomic radius and low ionization energy, so it readily loses an outer electron.</div>
+        </div>
+      </div>
+      <div class="challenge-box wide"><strong>Compare</strong><p>Select Na and Cl. Which is more likely to lose an electron? Which is more likely to attract an electron in a bond? Use the trend data as evidence.</p></div>
+    </section>
+  </main>
+
+  <footer><p>NCST Simulation Hub • Built for classroom learning • No student data is collected</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
